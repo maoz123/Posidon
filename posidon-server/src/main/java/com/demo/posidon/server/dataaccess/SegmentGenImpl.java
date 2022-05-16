@@ -45,7 +45,6 @@ public class SegmentGenImpl implements IGen {
         this.sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
         this.initialized = true;
         wLock.unlock();
-
     }
 
     private ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
@@ -55,8 +54,8 @@ public class SegmentGenImpl implements IGen {
     public PosidonAlloc updateMaxIdAndGetLeafAlloc(String serviceName) {
         SqlSession session = sqlSessionFactory.openSession(ExecutorType.REUSE, TransactionIsolationLevel.REPEATABLE_READ);
         try{
-            session.selectOne("IDaoMapper.updateMaxIdAndGetLeafAlloc", serviceName);
-            PosidonAlloc alloc = session.selectOne("IDaoMapper.getAllocBySeriveName", serviceName);
+            session.selectOne("com.demo.posidon.server.dataaccess.IDaoMapper.updateMaxIdAndGetLeafAlloc", serviceName);
+            PosidonAlloc alloc = session.selectOne("com.demo.posidon.server.dataaccess.IDaoMapper.getAllocBySeriveName", serviceName);
             session.commit();
             return alloc;
         }
@@ -70,7 +69,7 @@ public class SegmentGenImpl implements IGen {
         SqlSession session = sqlSessionFactory.openSession(ExecutorType.REUSE, TransactionIsolationLevel.REPEATABLE_READ);
         try
         {
-            session.selectOne("IDaoMapper.updateMaxIdByCustomStepAndGetLeafAlloc", leafAlloc);
+            session.selectOne("com.demo.posidon.server.dataaccess.IDaoMapper.updateMaxIdByCustomStepAndGetLeafAlloc", leafAlloc);
             session.commit();
         }finally {
             session.close();
@@ -82,7 +81,7 @@ public class SegmentGenImpl implements IGen {
         SqlSession session = sqlSessionFactory.openSession(ExecutorType.REUSE, TransactionIsolationLevel.REPEATABLE_READ);
         try
         {
-            PosidonAlloc alloc = session.selectOne("IDaoMapper.getAllocBySeriveName", serviceName);
+            PosidonAlloc alloc = session.selectOne("com.demo.posidon.server.dataaccess.IDaoMapper.getAllocBySeriveName", serviceName);
             session.commit();
             return alloc;
         }finally {
@@ -96,7 +95,7 @@ public class SegmentGenImpl implements IGen {
         SqlSession session = sqlSessionFactory.openSession(ExecutorType.REUSE, TransactionIsolationLevel.REPEATABLE_READ);
         try
         {
-            List<String> services = session.selectList("IDaoMapper.getAllSupportedServices");
+            List<String> services = session.selectList("com.demo.posidon.server.dataaccess.IDaoMapper.getAllSupportedServices");
             session.commit();
             return services;
         }finally {
