@@ -12,4 +12,6 @@
 
 *.iml
 
+/*/target/**
+
 .idea/**

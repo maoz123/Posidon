@@ -1,6 +1,0 @@
-
-logging:
-  config: classpath:logback.xml
-server:
-  context-path: /posidon
-  port: 8000
